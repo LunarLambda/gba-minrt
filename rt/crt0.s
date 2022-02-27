@@ -114,11 +114,17 @@ entrypoint:
     movs        r2, #0 @ envp
     ldr         r3, =main
     bl          bx_r3
+    mov         r7, r0
 
     @ .fini_array section
     ldr         r4, =__fini_array_start
     ldr         r5, =__fini_array_end
     bl          fini_array
+
+    @ exit()
+    mov         r0, r7
+    ldr         r3, =exit
+    bl          bx_r3
 
     @ Disable IRQs and halt
     ldr         r3, =REG_IME
