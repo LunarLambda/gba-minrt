@@ -10,7 +10,7 @@
 .section        .rom_header,"ax",%progbits
 .align 2
 .arm
-_entrypoint:
+_start:
     b           entrypoint      @ ROM entry point
                                 @ Nintendo logo data
     .byte       0x24, 0xFF, 0xAE, 0x51, 0x69, 0x9A, 0xA2, 0x21
@@ -176,6 +176,6 @@ pool: .pool
 .equiv          REG_DMA3,       0x040000D4
 .equiv          REG_IME,        0x04000208
 
-.global         _entrypoint, _boot_type, _boot_client
+.global         _start, _boot_type, _boot_client
 
 @ vim: ft=armv4 et sta sw=4 sts=8
