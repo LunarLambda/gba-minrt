@@ -106,11 +106,6 @@ SECTIONS
                 . = ALIGN(4);
         } >IWRAM AT>ROM
 
-        __iwram_vma = ADDR(.iwram);
-        __iwram_lma = LOADADDR(.iwram);
-        __iwram_end = LOADADDR(.iwram) + SIZEOF(.iwram);
-        __iwram_dma = SIZEOF(.iwram) >> 2 | 0x84000000;
-
         OVERLAY : NOCROSSREFS AT(__iwram_end)
         {
                 .iwram0 { *(.iwram0 .iwram0.*) . = ALIGN(4); }
@@ -125,9 +120,6 @@ SECTIONS
                 .iwram9 { *(.iwram9 .iwram9.*) . = ALIGN(4); }
         } >IWRAM
 
-        __iwram_overlay_vma = ADDR(.iwram0);
-        __iwram_overlay_dma = SIZEOF(.iwram0) >> 2 | 0x84000000;
-
         .iwram_bss (NOLOAD) :
         {
                 *(.bss .bss.* .gnu.linkonce.b.*)
@@ -135,26 +127,12 @@ SECTIONS
                 . = ALIGN(4);
         } >IWRAM
 
-        __iwram_bss_vma = ADDR(.iwram_bss);
-        __iwram_bss_end = ADDR(.iwram_bss) + SIZEOF(.iwram_bss);
-        __iwram_bss_dma = SIZEOF(.iwram_bss) >> 2 | 0x85000000;
-
-        __iwram_size  = __iwram_bss_end - ORIGIN(IWRAM);
-        __iwram_limit = LENGTH(IWRAM) - 512;
-
-        ASSERT(__iwram_size <= __iwram_limit, "Not enough free IWRAM for stack.")
-
         .ewram :
         {
                 *(SORT(.ewram.sorted.*))
                 *(.ewram .ewram.*)
                 . = ALIGN(4);
         } >EWRAM AT>ROM
-
-        __ewram_vma = ADDR(.ewram);
-        __ewram_lma = LOADADDR(.ewram);
-        __ewram_end = LOADADDR(.ewram) + SIZEOF(.ewram);
-        __ewram_dma = SIZEOF(.ewram) >> 2 | 0x84000000;
 
         OVERLAY : NOCROSSREFS AT(__ewram_end)
         {
@@ -170,14 +148,36 @@ SECTIONS
                 .ewram9 { *(.ewram9 .ewram9.*) . = ALIGN(4); }
         } >EWRAM
 
-        __ewram_overlay_vma = ADDR(.ewram0);
-        __ewram_overlay_dma = SIZEOF(.ewram0) >> 2 | 0x84000000;
-
         .ewram_bss (NOLOAD) :
         {
                 *(.sbss .sbss.* .ewram_bss .ewram_bss.*)
                 . = ALIGN(4);
         } >EWRAM
+
+        __iwram_vma = ADDR(.iwram);
+        __iwram_lma = LOADADDR(.iwram);
+        __iwram_end = LOADADDR(.iwram) + SIZEOF(.iwram);
+        __iwram_dma = SIZEOF(.iwram) >> 2 | 0x84000000;
+
+        __iwram_overlay_vma = ADDR(.iwram0);
+        __iwram_overlay_dma = SIZEOF(.iwram0) >> 2 | 0x84000000;
+
+        __iwram_bss_vma = ADDR(.iwram_bss);
+        __iwram_bss_end = ADDR(.iwram_bss) + SIZEOF(.iwram_bss);
+        __iwram_bss_dma = SIZEOF(.iwram_bss) >> 2 | 0x85000000;
+
+        __iwram_size  = __iwram_bss_end - ORIGIN(IWRAM);
+        __iwram_limit = LENGTH(IWRAM) - 512;
+
+        ASSERT(__iwram_size <= __iwram_limit, "Not enough free IWRAM for stack.")
+
+        __ewram_vma = ADDR(.ewram);
+        __ewram_lma = LOADADDR(.ewram);
+        __ewram_end = LOADADDR(.ewram) + SIZEOF(.ewram);
+        __ewram_dma = SIZEOF(.ewram) >> 2 | 0x84000000;
+
+        __ewram_overlay_vma = ADDR(.ewram0);
+        __ewram_overlay_dma = SIZEOF(.ewram0) >> 2 | 0x84000000;
 
         __ewram_bss_vma = ADDR(.ewram_bss);
         __ewram_bss_end = ADDR(.ewram_bss) + SIZEOF(.ewram_bss);
