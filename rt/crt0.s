@@ -114,7 +114,7 @@ entrypoint:
     movs        r2, #0 @ envp
     ldr         r3, =main
     bl          bx_r3
-    mov         r7, r0
+    movs        r7, r0
 
     @ .fini_array section
     ldr         r4, =__fini_array_start
@@ -122,10 +122,11 @@ entrypoint:
     bl          fini_array
 
     @ exit()
-    mov         r0, r7
+    movs        r0, r7
     ldr         r3, =exit
     bl          bx_r3
 
+_exit:
     @ Disable IRQs and halt
     ldr         r3, =REG_IME
     strh        r3, [r3]
@@ -182,6 +183,6 @@ pool: .pool
 .equiv          REG_DMA3,       0x040000D4
 .equiv          REG_IME,        0x04000208
 
-.global         _start, _boot_type, _boot_client
+.global         _start, _exit, _boot_type, _boot_client
 
 @ vim: ft=armv4 et sta sw=4 sts=8
