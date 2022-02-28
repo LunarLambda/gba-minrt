@@ -150,7 +150,7 @@ SECTIONS
 
         .ewram_bss (NOLOAD) :
         {
-                *(.sbss .sbss.* .ewram_bss .ewram_bss.*)
+                *(.ewram_bss .ewram_bss.* .sbss .sbss.*)
                 . = ALIGN(4);
         } >EWRAM
 
