@@ -1,7 +1,7 @@
 # GBA Minimal Runtime
 
 `gba-minrt` provides all the low-level components necessary to build ELF
-executables for the Game Boy Advance. It is meant to be used with an unmodified
+executables and ROMs for the Game Boy Advance. It is meant to be used with an unmodified
 `arm-none-eabi` GCC toolchain, and forms a replacement for devkitARM's tooling.
 
 It includes appropriate startup code (rt/crt0.s), a linker script (rt/rom.ld),
