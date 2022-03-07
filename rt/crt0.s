@@ -59,7 +59,14 @@ entrypoint:
     add         r0, pc, #1
     bx          r0
 .thumb
-    @ TODO: Stuff like boot type check for multiboot and such (LR holds load address)
+    @ IRQs off
+    ldr         r3, =REG_IME
+    strh        r3, [r3]
+
+    ldr         r3, =REG_WRAMCNT
+    ldr         r2, =__wramcnt
+    str         r2, [r3]
+
     ldr         r3, =REG_DMA3
 
     @ .iwram section
@@ -178,6 +185,7 @@ pool: .pool
 
 .equiv          REG_DMA3,       0x040000D4
 .equiv          REG_IME,        0x04000208
+.equiv          REG_WRAMCNT,    0x04000800
 .equiv          SVC_CPUSET,     11
 
 .global         _start, _exit, _boot_type, _boot_client
