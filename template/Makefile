@@ -8,7 +8,7 @@
 
 MINRT		:= ..
 
-PROJECT		:= minrt-demo
+PROJECT		:= gba-minrt-template
 
 SOURCES		:= rt/crt0.s src/main.c
 
