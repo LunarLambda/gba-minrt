@@ -12,7 +12,7 @@ PROJECT		:= minrt-demo
 
 SOURCES		:= rt/crt0.s src/main.c
 
-INCLUDES	:=
+INCLUDES	:= $(MINRT)/rt
 
 LIBDIRS		:=
 
