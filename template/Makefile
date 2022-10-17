@@ -42,7 +42,7 @@ ASFLAGS		:=
 # Linker flags (as passed to GCC)
 LDFLAGS		:= -mthumb -specs=$(MINRT)/lib/nocrt0.specs \
 		-specs=nano.specs -specs=nosys.specs \
-		-Wl,-Trom.ld
+		-Wl,-Trom.ld -Wl,--no-warn-rwx-segments
 
 # Uncomment this if you want to use Link Time Optimization
 #

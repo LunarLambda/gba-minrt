@@ -157,5 +157,6 @@ pool: .pool
 .equiv          SVC_CPUSET,     11
 
 .global         _start, _exit, _boot_type, _boot_client
+.weak           _exit
 
 @ vim: ft=armv4 et sta sw=4 sts=8
